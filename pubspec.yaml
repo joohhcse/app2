@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_hooks: ^0.18.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -59,6 +59,9 @@ flutter:
 
   assets:
     - asset/img/
+    - asset/img/bgimg1/
+    - asset/img/bgimg2/
+    - asset/img/bgimg3/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

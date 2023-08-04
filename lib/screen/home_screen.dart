@@ -1,3 +1,5 @@
+import 'package:app2/screen/play_screen1.dart';
+import 'package:app2/screen/play_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -9,18 +11,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _msg = 'Welcome to WillPopScope World';
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        setState(() {
-          _msg = "You cannot get out of here! lol";
-        });
-        return Future(() => false);
-      },
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('AppBar'),
         ),
@@ -32,13 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                icons(),
+                Icons(),
               ]
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
 
@@ -57,34 +50,55 @@ class CharacterButton extends StatelessWidget {
   }
 }
 
-class icons extends StatelessWidget {
+class Icons extends StatelessWidget {
+  const Icons({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Text(
+          '- 선택해주세요 - ',
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: 16),
+        ),
+        const SizedBox(height: 16.0),
         const SizedBox(height: 16.0),
         InkWell(
           onTap: () {
             // 모델 1 클릭 시 동작
             // _onModel1Clicked(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PlayScreen1(),
+              ),
+            );
           },
           child: CircleAvatar(
             radius: 50.0,
             backgroundImage: AssetImage('asset/img/1.png'), // 모델 1 이미지 파일 경로
           ),
         ),
+        Text('model 1'),
         const SizedBox(height: 16.0),
         InkWell(
           onTap: () {
             // 모델 1 클릭 시 동작
             // _onModel1Clicked(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PlayScreen2(),
+              ),
+            );
           },
           child: CircleAvatar(
             radius: 50.0,
             backgroundImage: AssetImage('asset/img/2.png'), // 모델 1 이미지 파일 경로
           ),
         ),
+        Text('model 2'),
         const SizedBox(height: 16.0),
         InkWell(
           onTap: () {
@@ -96,6 +110,7 @@ class icons extends StatelessWidget {
             backgroundImage: AssetImage('asset/img/3.png'), // 모델 1 이미지 파일 경로
           ),
         ),
+        Text('model 3'),
       ],
     );
   }
