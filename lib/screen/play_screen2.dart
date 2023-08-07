@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class PlayScreen2 extends StatefulWidget {
   const PlayScreen2({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _PlayScreen2State extends State<PlayScreen2> {
 
     Timer.periodic(
       // ➍ Timer.periodic() 등록
-      Duration(seconds: 15),
+      Duration(seconds: 5),
           (timer) {
         print('실행!');
         int? nextPage = pageController.page?.toInt();
@@ -49,29 +50,22 @@ class _PlayScreen2State extends State<PlayScreen2> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
-    return WillPopScope(
-      onWillPop: () {
-        setState(() {
-        });
-        return Future(() => false);
-      },
-      child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('PlayScreen_AppBar'),
-        // ),
-        body: PageView(
-          controller: pageController,
-          // ➊ PageView 추가
-          children: [1, 2, 3] // ➋ 샘플 리스트 생성
-              .map(
-            // ➌ 위젯으로 매핑
-                (number) => Image.asset(
-              'asset/img/bgimg2/image_$number.jpg',
-              fit: BoxFit.cover,
-            ),
-          )
-              .toList(),
-        ),
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Text('PlayScreen_AppBar'),
+      // ),
+      body: PageView(
+        controller: pageController,
+        // ➊ PageView 추가
+        children: [1, 2, 3] // ➋ 샘플 리스트 생성
+            .map(
+          // ➌ 위젯으로 매핑
+              (number) => Image.asset(
+            'asset/img/bgimg2/image_$number.jpg',
+            fit: BoxFit.cover,
+          ),
+        )
+            .toList(),
       ),
     );
   }

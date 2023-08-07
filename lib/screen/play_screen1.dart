@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:intl/intl.dart';
 
 class PlayScreen1 extends StatefulWidget {
   const PlayScreen1({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class _PlayScreen1State extends State<PlayScreen1> {
 
     Timer.periodic(
       // ➍ Timer.periodic() 등록
-      Duration(seconds: 15),
+      Duration(seconds: 5),
           (timer) {
         print('실행!');
         int? nextPage = pageController.page?.toInt();
@@ -50,48 +49,64 @@ class _PlayScreen1State extends State<PlayScreen1> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
-    return WillPopScope(
-      onWillPop: () {
-        setState(() {
-        });
-        return Future(() => false);
-      },
-      child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('PlayScreen_AppBar'),
-        // ),
-        body: PageView(
-          controller: pageController,
-          // ➊ PageView 추가
-          children: [1, 2, 3] // ➋ 샘플 리스트 생성
-              .map(
+    return Scaffold(
+
+      body: PageView(
+        controller: pageController,
+        children: [1, 2, 3] // ➋ 샘플 리스트 생성
+            .map(
             // ➌ 위젯으로 매핑
-                (number) => Image.asset(
-              'asset/img/bgimg1/image_$number.jpg',
-              fit: BoxFit.cover,
-            ),
-          )
-              .toList(),
-        ),
+              (number) => Image.asset(
+            'asset/img/bgimg1/image_$number.jpg',
+            fit: BoxFit.cover,
+          ),
+        ).toList(),
       ),
+
     );
   }
 }
 
-class DigitalClock extends HookWidget {
+class DigitalClock extends StatefulWidget {
+  @override
+  _DigitalClockState createState() => _DigitalClockState();
+}
+
+class _DigitalClockState extends State<DigitalClock> {
+  late Timer _timer;
+  String _currentTime = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _updateTime();
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) => _updateTime());
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _updateTime() {
+    setState(() {
+      _currentTime = DateFormat('HH:mm:ss').format(DateTime.now());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-      DateTime now = DateTime.now();
-      String formattedTime = DateFormat.Hms().format(now);
-      return Text(
-        formattedTime,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Digital Clock'),
+      ),
+      body: Center(
+        child: Text(
+          _currentTime,
+          style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
         ),
-      );
-    });
+      ),
+    );
   }
 }

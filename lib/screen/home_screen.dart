@@ -1,5 +1,6 @@
 import 'package:app2/screen/play_screen1.dart';
 import 'package:app2/screen/play_screen2.dart';
+import 'package:app2/screen/play_screen3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -66,8 +67,6 @@ class Icons extends StatelessWidget {
         const SizedBox(height: 16.0),
         InkWell(
           onTap: () {
-            // 모델 1 클릭 시 동작
-            // _onModel1Clicked(context);
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -84,8 +83,6 @@ class Icons extends StatelessWidget {
         const SizedBox(height: 16.0),
         InkWell(
           onTap: () {
-            // 모델 1 클릭 시 동작
-            // _onModel1Clicked(context);
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -102,9 +99,12 @@ class Icons extends StatelessWidget {
         const SizedBox(height: 16.0),
         InkWell(
           onTap: () {
-            // 모델 1 클릭 시 동작
-            // _onModel1Clicked(context);
-          },
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PlayScreen3(),
+              ),
+            );          },
           child: CircleAvatar(
             radius: 50.0,
             backgroundImage: AssetImage('asset/img/3.png'), // 모델 1 이미지 파일 경로
