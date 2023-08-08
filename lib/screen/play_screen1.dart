@@ -50,19 +50,45 @@ class _PlayScreen1State extends State<PlayScreen1> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
     return Scaffold(
+      // body: PageView(
+      //   controller: pageController,
+      //   children: [1, 2, 3] // ➋ 샘플 리스트 생성
+      //       .map(
+      //       // ➌ 위젯으로 매핑
+      //         (number) => Image.asset(
+      //       'asset/img/bgimg1/image_$number.jpg',
+      //       fit: BoxFit.cover,
+      //     ),
+      //   ).toList(),
+      // ),
 
-      body: PageView(
-        controller: pageController,
-        children: [1, 2, 3] // ➋ 샘플 리스트 생성
-            .map(
-            // ➌ 위젯으로 매핑
-              (number) => Image.asset(
-            'asset/img/bgimg1/image_$number.jpg',
-            fit: BoxFit.cover,
-          ),
-        ).toList(),
-      ),
-
+        body: Stack(
+          children: [
+            PageView(
+              controller: pageController,
+              children: [1, 2, 3] // ➋ 샘플 리스트 생성
+                  .map(
+                // ➌ 위젯으로 매핑
+                    (number) => Image.asset(
+                  'asset/img/bgimg1/image_$number.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ).toList(),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: EdgeInsets.all(16),
+                color: Colors.black.withOpacity(0.5),
+                child: DigitalClock(),
+                  // Text(
+                  //   'Swipe to navigate',
+                  //   style: TextStyle(color: Colors.white),
+                  // ),
+              ),
+            ),
+          ],
+        )
     );
   }
 }
@@ -97,16 +123,24 @@ class _DigitalClockState extends State<DigitalClock> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Digital Clock'),
-      ),
-      body: Center(
-        child: Text(
-          _currentTime,
-          style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
-        ),
-      ),
+    return Stack(
+        children: [
+        Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+            padding: EdgeInsets.all(16),
+            color: Colors.black.withOpacity(0.5),
+            child: Text(
+              _currentTime,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
