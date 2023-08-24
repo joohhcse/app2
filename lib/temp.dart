@@ -43,6 +43,7 @@ class _CounterAppState extends State<CounterApp> {
       ),
       body: Center(
         child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Counter Value:', style: TextStyle(fontSize: 20)),

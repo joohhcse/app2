@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +17,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class TodoListApp extends StatefulWidget {
   @override
   _TodoListAppState createState() => _TodoListAppState();
@@ -23,17 +24,20 @@ class TodoListApp extends StatefulWidget {
 
 class _TodoListAppState extends State<TodoListApp> {
   List<String> _tasks = [];
+  String strInput = '';
 
   void _addTask(String task) {
     setState(() {
       _tasks.add(task);
     });
+    print(task);
   }
 
   void _removeTask(int index) {
     setState(() {
       _tasks.removeAt(index);
     });
+    print('removeTask');
   }
 
   @override
@@ -62,7 +66,8 @@ class _TodoListAppState extends State<TodoListApp> {
               return AlertDialog(
                 title: Text('Add Task'),
                 content: TextField(
-                  onChanged: (value) => _addTask(value),
+                  // onChanged: (value) => _addTask(value), //remove
+                  onChanged: (value) => strInput = value,
                 ),
                 actions: [
                   ElevatedButton(
@@ -73,7 +78,7 @@ class _TodoListAppState extends State<TodoListApp> {
                     onPressed: () {
                       Navigator.pop(context);
                       // Call _addTask function with the TextField value
-                      _addTask("New Task");
+                      _addTask(strInput);
                     },
                     child: Text('Add'),
                   ),
