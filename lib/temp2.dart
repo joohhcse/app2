@@ -87,7 +87,8 @@ class _TodoListAppState extends State<TodoListApp> {
             },
           );
         },
-        child: Icon(Icons.add),
+        // child: Icon(Icons.add),
+        child: Icon(Icons.add_box_outlined),
       ),
     );
   }

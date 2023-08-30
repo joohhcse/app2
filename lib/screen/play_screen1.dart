@@ -14,27 +14,35 @@ class PlayScreen1 extends StatefulWidget {
 class _PlayScreen1State extends State<PlayScreen1> {
   final PageController pageController = PageController();
 
+  int ratio = 1;
+
   @override
   void initState() {
     super.initState(); // ➌ 부모 initState() 실행
 
     Timer.periodic(
       // ➍ Timer.periodic() 등록
-      Duration(seconds: 5),
+      Duration(seconds: 1),
           (timer) {
         print('실행!');
         int? nextPage = pageController.page?.toInt();
-
-        // ➋
+        print(nextPage);
         if (nextPage == null) {
           return;
         }
-        // ➌
-        if (nextPage == 4) {
-          nextPage = 0;
-        } else {
-          nextPage++;
+
+        if (nextPage == 2) {
+          ratio = -1;
+          nextPage += ratio;
         }
+        else if(nextPage == 0) {
+          ratio = 1;
+          nextPage += ratio;
+        }
+        else {
+          nextPage += ratio;
+        }
+
         pageController.animateToPage(
           // ➍ 페이지 변경
           nextPage,
@@ -61,7 +69,9 @@ class _PlayScreen1State extends State<PlayScreen1> {
       //     ),
       //   ).toList(),
       // ),
-
+        appBar: AppBar(
+          title: Text('Model 1'),
+        ),
         body: Stack(
           children: [
             PageView(
@@ -90,6 +100,13 @@ class _PlayScreen1State extends State<PlayScreen1> {
           ],
         )
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    pageController.dispose();
   }
 }
 
@@ -134,7 +151,7 @@ class _DigitalClockState extends State<DigitalClock> {
               _currentTime,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 24,
+                fontSize: 48,
                 fontWeight: FontWeight.bold
               ),
             ),
